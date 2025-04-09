@@ -1,0 +1,6 @@
+[submodule "third_party/curl"]
+	path = third_party/curl
+	url = https://github.com/curl/curl.git
+[submodule "third_party/libpsl"]
+	path = third_party/libpsl
+	url = https://github.com/rockdaboot/libpsl.git
