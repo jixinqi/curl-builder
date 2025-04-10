@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-import shutil
-
 import sys
 import pathlib
 sys.path.append(pathlib.Path(__file__).parent)
@@ -13,7 +11,7 @@ class builder_libpsl(builder_base):
     def __init__(self):
         super().__init__()
         self.__project_dir = pathlib.Path(__file__).parent.parent.parent
-        self.__module_dir  = pathlib.Path(__file__).parent.parent.parent / "third_party" / "libpsl"
+        self.__module_dir  = self.__project_dir / "third_party" / "libpsl"
         if(
             not self.__module_dir.exists() or
             not self.__module_dir.is_dir()
@@ -108,15 +106,16 @@ class builder_libpsl(builder_base):
         install_dir = self.__project_dir / "__install" / "libpsl"
 
         for build_type in ["Debug", "Release"]:
+            cur_build_dir = build_dir / build_type
             self.env.run_commands(
                 commands = [
-                    f"cmake -B {build_dir} -DCMAKE_INSTALL_PREFIX={install_dir / build_type}",
-                    f"cmake --build   {build_dir} --config={build_type}",
-                    f"cmake --install {build_dir} --config={build_type}"
+                    f'cmake -B        {cur_build_dir}'
+                        f' -DCMAKE_INSTALL_PREFIX={install_dir / build_type}',
+                    f'cmake --build   {cur_build_dir} --config={build_type}',
+                    f'cmake --install {cur_build_dir} --config={build_type}'
                 ],
                 cwd = self.__module_dir
             )
-            shutil.rmtree(build_dir)
 
     def build(self):
         self.__generate_suffixes_dafsa_h()
