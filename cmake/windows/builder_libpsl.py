@@ -110,9 +110,9 @@ class builder_libpsl(builder_base):
         for build_type in ["Debug", "Release"]:
             self.env.run_commands(
                 commands = [
-                    f"cmake  -B {build_dir} -DCMAKE_INSTALL_PREFIX={install_dir / build_type}",
-                    f"cmake --build {build_dir} --config={build_type}",
-                    f"cmake --install {build_dir}"
+                    f"cmake -B {build_dir} -DCMAKE_INSTALL_PREFIX={install_dir / build_type}",
+                    f"cmake --build   {build_dir} --config={build_type}",
+                    f"cmake --install {build_dir} --config={build_type}"
                 ],
                 cwd = self.__module_dir
             )
