@@ -17,6 +17,13 @@
             "request": "launch",
             "program": "${workspaceFolder}/cmake/windows/builder_libpsl.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: builder_zlib.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/cmake/windows/builder_zlib.py",
+            "console": "integratedTerminal"
         }
     ]
 }
