@@ -25,11 +25,6 @@ class builder_libpsl(builder_base):
             ],
             cwd = self.__module_dir
         )
-        
-        source_files = [
-            "./src/lookup_string_in_fixed_set.c",
-            "./src/psl.c"
-        ]
 
     def __generate_libpsl_h(self):
         psl_version        = ""
