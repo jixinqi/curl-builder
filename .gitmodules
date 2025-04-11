@@ -4,3 +4,6 @@
 [submodule "third_party/libpsl"]
 	path = third_party/libpsl
 	url = https://github.com/rockdaboot/libpsl.git
+[submodule "third_party/zlib"]
+	path = third_party/zlib
+	url = https://github.com/madler/zlib.git
