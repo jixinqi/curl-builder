@@ -8,6 +8,7 @@ from _configure_environment import environment
 from _builder_base          import builder_base
 
 from builder_libpsl         import builder_libpsl
+from builder_zlib           import builder_zlib
 
 class builder_curl(builder_base):
     def __init__(self):
@@ -21,6 +22,9 @@ class builder_curl(builder_base):
             raise
 
     def __build_submodules(self):
+        builder_zlib_obj = builder_zlib()
+        builder_zlib_obj.build()
+
         builder_libpsl_obj = builder_libpsl()
         builder_libpsl_obj.build()
 
@@ -36,17 +40,18 @@ class builder_curl(builder_base):
             self.env.run_commands(
                 commands = [
                     f'cmake -B        {cur_build_dir}'
-                        f' -DCMAKE_INSTALL_PREFIX={curl_install_dir / build_type}'
-                        f' -DBUILD_STATIC_LIBS=ON'
-                        f' -DLIBPSL_INCLUDE_DIR="{install_dir / "libpsl" / "Release" / "include"}"'
-                        f' -DLIBPSL_LIBRARY="{install_dir / "libpsl" / "Release" / "lib" / "psl.lib"}"'
-                        f' -DLIBPSL_CFLAGS="-DPSL_API="',
+                        f' -DCMAKE_INSTALL_PREFIX=' f'{curl_install_dir / build_type}'
+                        f' -DBUILD_STATIC_LIBS='    f'ON'
+                        f' -DLIBPSL_INCLUDE_DIR='   f'"{install_dir / "libpsl" / build_type / "include"}"'
+                        f' -DLIBPSL_LIBRARY='       f'"{install_dir / "libpsl" / build_type / "lib" / "psl.lib"}"'
+                        f' -DLIBPSL_CFLAGS='        f'"-DPSL_API="'
+                        f' -DZLIB_INCLUDE_DIR='     f'"{install_dir / "zlib" / build_type / "include"}"'
+                        f' -DZLIB_LIBRARY='         f'"{install_dir / "zlib" / build_type / "lib" / ("zsd.lib" if (build_type == "Debug") else "zs.lib") }"',
                     f'cmake --build   {cur_build_dir} --config={build_type}',
                     f'cmake --install {cur_build_dir} --config={build_type}'
                 ],
                 cwd = self.__module_dir
             )
-
 
     def build(self):
         self.__build_submodules()
