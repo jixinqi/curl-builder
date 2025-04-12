@@ -28,6 +28,7 @@ class builder_zlib(builder_base):
                 commands = [
                     f'cmake -B        {cur_build_dir}'
                         f' -DCMAKE_INSTALL_PREFIX={install_dir / build_type}'
+                        f' -DCMAKE_BUILD_TYPE={build_type}'
                         f' -DZLIB_BUILD_TESTING=OFF'
                         f' -DZLIB_BUILD_SHARED=OFF',
                     f'cmake --build   {cur_build_dir} --config={build_type}',
