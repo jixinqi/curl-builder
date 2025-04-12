@@ -105,7 +105,8 @@ class builder_libpsl(builder_base):
             self.env.run_commands(
                 commands = [
                     f'cmake -B        {cur_build_dir}'
-                        f' -DCMAKE_INSTALL_PREFIX={install_dir / build_type}',
+                        f' -DCMAKE_INSTALL_PREFIX={install_dir / build_type}'
+                        f' -DCMAKE_BUILD_TYPE={build_type}',
                     f'cmake --build   {cur_build_dir} --config={build_type}',
                     f'cmake --install {cur_build_dir} --config={build_type}'
                 ],
