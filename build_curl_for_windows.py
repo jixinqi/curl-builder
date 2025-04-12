@@ -14,6 +14,8 @@ from _builder_base          import builder_base
 from builder_openssl        import builder_openssl
 from builder_libpsl         import builder_libpsl
 from builder_zlib           import builder_zlib
+from builder_nghttp2        import builder_nghttp2
+
 
 class builder_curl(builder_base):
     def __init__(self):
@@ -30,11 +32,14 @@ class builder_curl(builder_base):
         builder_openssl_obj = builder_openssl()
         builder_openssl_obj.build()
 
+        builder_libpsl_obj = builder_libpsl()
+        builder_libpsl_obj.build()
+
         builder_zlib_obj = builder_zlib()
         builder_zlib_obj.build()
 
-        builder_libpsl_obj = builder_libpsl()
-        builder_libpsl_obj.build()
+        builder_nghttp2_obj = builder_nghttp2()
+        builder_nghttp2_obj.build()
 
     def __download_cacert_pem(self, download_dir:pathlib.Path):
         if(not download_dir.exists()):
@@ -72,18 +77,27 @@ class builder_curl(builder_base):
                 commands = [
                     f'cmake -B        {cur_build_dir}'
                         f' -DCMAKE_INSTALL_PREFIX='    f'"{ curl_install_dir / build_type }"'
+                        f' -DBUILD_SHARED_LIBS='       f'OFF'
                         f' -DBUILD_STATIC_LIBS='       f'ON'
+                        f' -DBUILD_TESTING='           f'ON'
 
                         f' -DCURL_CA_BUNDLE='          f'"./{cacert_pem_path.name}"'
                         f' -DCURL_USE_OPENSSL='        f'ON'
                         f' -DOPENSSL_ROOT_DIR='        f'"{ install_dir / "openssl" / build_type }"'
 
+                        f' -DCURL_USE_LIBPSL='         f'ON'
                         f' -DLIBPSL_INCLUDE_DIR='      f'"{ install_dir / "libpsl"  / build_type / "include" }"'
                         f' -DLIBPSL_LIBRARY='          f'"{ install_dir / "libpsl"  / build_type / "lib" / "psl.lib" }"'
                         f' -DLIBPSL_CFLAGS='           f'"-DPSL_API="'
 
                         f' -DZLIB_INCLUDE_DIR='        f'"{ install_dir / "zlib"    / build_type / "include" }"'
-                        f' -DZLIB_LIBRARY='            f'"{ install_dir / "zlib"    / build_type / "lib" / ("zsd.lib" if (build_type == "Debug") else "zs.lib") }"',
+                        f' -DZLIB_LIBRARY='            f'"{ install_dir / "zlib"    / build_type / "lib" / ("zsd.lib" if (build_type == "Debug") else "zs.lib") }"'
+
+                        f' -DUSE_NGHTTP2='             f'ON'
+                        f' -DNGHTTP2_INCLUDE_DIR='     f'"{ install_dir / "nghttp2" / build_type / "include" }"'
+                        f' -DNGHTTP2_LIBRARY='         f'"{ install_dir / "nghttp2" / build_type / "lib" / "nghttp2.lib"}"'
+                        f' -DNGHTTP2_CFLAGS='          f'"-DNGHTTP2_STATICLIB="',
+
                     f'cmake --build   { cur_build_dir } --config={ build_type }',
                     f'cmake --install { cur_build_dir } --config={ build_type }'
                 ],

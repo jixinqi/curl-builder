@@ -31,6 +31,13 @@
             "request": "launch",
             "program": "${workspaceFolder}/cmake/windows/builder_zlib.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: builder_nghttp2.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/cmake/windows/builder_nghttp2.py",
+            "console": "integratedTerminal"
         }
     ]
 }
