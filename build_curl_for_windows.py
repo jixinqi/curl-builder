@@ -90,7 +90,10 @@ class builder_curl(builder_base):
                 cwd = self.__module_dir
             )
 
-            shutil.copy(cacert_pem_path, curl_install_dir / build_type / "bin" / cacert_pem_path.name)
+            copy_cacert_pem_dst_dir = curl_install_dir / build_type / "bin"
+            if(not copy_cacert_pem_dst_dir.exists()):
+                copy_cacert_pem_dst_dir.mkdir(parents=True)
+            shutil.copy(cacert_pem_path, copy_cacert_pem_dst_dir / cacert_pem_path.name)
 
     def build(self):
         self.__build_submodules()
