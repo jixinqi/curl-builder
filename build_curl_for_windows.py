@@ -37,6 +37,9 @@ class builder_curl(builder_base):
         builder_libpsl_obj.build()
 
     def __download_cacert_pem(self, download_dir:pathlib.Path):
+        if(not download_dir.exists()):
+            download_dir.mkdir(parents=True)
+
         host = "curl.se"
         path = "/ca/cacert.pem"
         output_file = download_dir / "cacert.pem"
@@ -90,7 +93,7 @@ class builder_curl(builder_base):
             shutil.copy(cacert_pem_path, curl_install_dir / build_type / "bin" / cacert_pem_path.name)
 
     def build(self):
-        # self.__build_submodules()
+        self.__build_submodules()
         self.__run_cmake()
 
 
