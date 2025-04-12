@@ -77,6 +77,7 @@ class builder_curl(builder_base):
                 commands = [
                     f'cmake -B        {cur_build_dir}'
                         f' -DCMAKE_INSTALL_PREFIX='    f'"{ curl_install_dir / build_type }"'
+                        f' -DCMAKE_BUILD_TYPE='        f'"{ build_type }"'
                         f' -DBUILD_SHARED_LIBS='       f'OFF'
                         f' -DBUILD_STATIC_LIBS='       f'ON'
                         f' -DBUILD_TESTING='           f'ON'
@@ -110,7 +111,7 @@ class builder_curl(builder_base):
             shutil.copy(cacert_pem_path, copy_cacert_pem_dst_dir / cacert_pem_path.name)
 
     def build(self):
-        self.__build_submodules()
+        # self.__build_submodules()
         self.__run_cmake()
 
 
