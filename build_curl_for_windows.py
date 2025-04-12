@@ -111,7 +111,7 @@ class builder_curl(builder_base):
             shutil.copy(cacert_pem_path, copy_cacert_pem_dst_dir / cacert_pem_path.name)
 
     def build(self):
-        # self.__build_submodules()
+        self.__build_submodules()
         self.__run_cmake()
 
 
