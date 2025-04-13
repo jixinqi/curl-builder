@@ -19,6 +19,13 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "Python: builder_quictls_openssl.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/cmake/windows/builder_quictls_openssl.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Python: builder_libpsl.py",
             "type": "debugpy",
             "request": "launch",
