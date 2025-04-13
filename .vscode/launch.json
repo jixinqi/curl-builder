@@ -38,6 +38,13 @@
             "request": "launch",
             "program": "${workspaceFolder}/cmake/windows/builder_nghttp2.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: builder_nghttp3.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/cmake/windows/builder_nghttp3.py",
+            "console": "integratedTerminal"
         }
     ]
 }

@@ -13,3 +13,6 @@
 [submodule "third_party/nghttp2"]
 	path = third_party/nghttp2
 	url = https://github.com/nghttp2/nghttp2
+[submodule "third_party/nghttp3"]
+	path = third_party/nghttp3
+	url = https://github.com/ngtcp2/nghttp3.git
